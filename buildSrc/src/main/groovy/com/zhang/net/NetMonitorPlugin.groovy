@@ -14,6 +14,6 @@ public class NetMonitorPlugin implements Plugin<Project> {
         def transform = new TransformDemo()
         def baseExtension = project.extensions.getByType(BaseExtension)
 //        println "bootClassPath:${baseExtension.bootClasspath}"
-//        baseExtension.registerTransform(transform)
+        baseExtension.registerTransform(transform)
     }
 }
