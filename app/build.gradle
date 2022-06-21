@@ -27,10 +27,10 @@ android {
 }
 
 
-//apply plugin: 'com.net.monitor'
-//zhang{
-//    name 'zhangzhishuai'
-//}
+apply plugin: 'com.net.monitor'
+zhang{
+    name 'zhangzhishuai'
+}
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.3.1'

@@ -38,18 +38,26 @@ class TransformDemo extends Transform {
 
     @Override
     public void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
-        def inputs = transformInvocation.getInputs()
-        def outputs = transformInvocation.outputProvider;
+        def inputs = transformInvocation.inputs
+        def outputProvider = transformInvocation.outputProvider
         inputs.each {
+            // jarInputs：各个依赖所编译成的 jar ⽂件
             it.jarInputs.each {
-                outputs.getContentLocation(it.name,it.contentTypes,it.scopes,
-                Format.JAR)
-                FileUtils.copyFile(it.file,dest)
+                // dest:
+                //./app/build/intermediates/transforms/netMonitorTransform/...
+                File dest =
+                        outputProvider.getContentLocation(it.name, it.contentTypes,
+                                it.scopes, Format.JAR)
+                FileUtils.copyFile(it.file, dest)
             }
+            // derectoryInputs：本地 project 编译成的多个 class ⽂件存放的⽬录
             it.directoryInputs.each {
-                outputs.getContentLocation(it.name,it.contentTypes,it.scopes,
-                        Format.DIRECTORY)
-                FileUtils.copyDirectory(it.file,dest)
+                // dest:
+                //./app/build/intermediates/transforms/netMonitorTransform/...
+                File dest =
+                        outputProvider.getContentLocation(it.name, it.contentTypes,
+                                it.scopes, Format.DIRECTORY)
+                FileUtils.copyDirectory(it.file, dest)
             }
         }
     }
